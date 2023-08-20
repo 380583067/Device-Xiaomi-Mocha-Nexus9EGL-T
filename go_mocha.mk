@@ -27,9 +27,6 @@ PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
 
 # Default heap sizes. Allow up to 256m for large heaps to make sure a single app
 # doesn't take all of the RAM.
-PRODUCT_PROPERTY_OVERRIDES += dalvik.vm.heapgrowthlimit=128m
-PRODUCT_PROPERTY_OVERRIDES += dalvik.vm.heapsize=360m
-
 
 # Strip the local variable table and the local variable type table to reduce
 # the size of the system image. This has no bearing on stack traces, but will
@@ -38,7 +35,6 @@ PRODUCT_MINIMIZE_JAVA_DEBUG_INFO := true
 
 # Set lowram options
 PRODUCT_PROPERTY_OVERRIDES += \
-     ro.lmk.critical_upgrade=true \
      ro.lmk.upgrade_pressure=40 \
      ro.lmk.downgrade_pressure=60 \
      ro.lmk.kill_heaviest_task=false \
@@ -47,12 +43,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # set threshold to filter unused apps
 PRODUCT_PROPERTY_OVERRIDES += \
      pm.dexopt.downgrade_after_inactive_days=10
-
-# Default heap sizes. Allow up to 256m for large heaps to make sure a single app
-# doesn't take all of the RAM.
-PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.heapgrowthlimit=128m
-    dalvik.vm.heapsize=256m
 
 # 512MB specific properties.
 

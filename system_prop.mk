@@ -37,14 +37,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196609\
     ro.sf.lcd_density=320 \
     persist.tegra.compositor=surfaceflinger \
-    persist.tegra.decompression=cde-client \
     ro.surface_flinger.use_frame_rate_api=false \
     ro.hardware.vulkan=nvgpu \
     debug.sf.latch_unsignaled=1 \
     debug.sf.disable_backpressure=1 \
-    persist.tegra.compositor=gldrawtexture \
     ro.input.noresample=1 \
-    ro.com.google.clientidbase=android-nvidia \
     ro.zygote.disable_gl_preload=true \
     persist.vendor.tegra.composite.policy=composite-yuv \
     debug.hwc.force_gpu=1 \
@@ -61,12 +58,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # LMKD options
 PRODUCT_PROPERTY_OVERRIDES += \
  ro.lmk.low=1001 \
- ro.lmk.medium=800  \
  ro.lmk.critical=0 \
  ro.lmk.critical_upgrade=false \
- ro.lmk.upgrade_pressure=100 \
- ro.lmk.downgrade_pressure=100 \
- ro.lmk.kill_heaviest_task=true \
  ro.lmk.kill_timeout_ms=100 \
  ro.lmk.use_minfree_levels=tru \
 
@@ -107,18 +100,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.wlan.ti.calibrated = 0
 
 
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-  persist.sys.usb.config=mtp
-
 PRODUCT_PROPERTY_OVERRIDES += \
   persist.service.adb.enable=1 \
   persist.service.debuggable=1 \
-  persist.sys.usb.config=mtp,adb \
-  ro.secure=0 \
-  ro.adb.secure=0 
-
+  persist.sys.usb.config=mtp,adb 
+  
 # Vendor Patch Level
-PRODUCT_PROPERTY_OVERRIDES += \
+#PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.build.security_patch=2018-01-05
 
 # fastbootd
