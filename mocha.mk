@@ -66,7 +66,9 @@ PRODUCT_PACKAGES += \
     libbt-vendor \
     libldacBT_dec \
     android.hardware.bluetooth@1.0-impl \
-    android.hardware.bluetooth@1.0-service
+    android.hardware.bluetooth@1.0-service \
+    android.hardware.bluetooth.a2dp@1.0-impl \
+    android.hardware.bluetooth.audio@2.0-impl
 
 # Camera
 #PRODUCT_COPY_FILES += \
@@ -109,8 +111,7 @@ PRODUCT_DEXPREOPT_SPEED_APPS += \
 # DRM HAL
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
-    android.hardware.drm@1.0-service \
-    libprotobuf_shim
+    android.hardware.drm@1.0-service
 
 # Doze
 PRODUCT_PACKAGES += \
@@ -142,7 +143,6 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@2.0-impl \
     android.hardware.renderscript@1.0-impl \
     libs \
-    libshim_zw \
     libshim_atomic
 
 #GO
@@ -166,9 +166,9 @@ PRODUCT_PACKAGES += \
     libhwbinder
 
 # HIDL Manifest
-#PRODUCT_COPY_FILES += \
-#    $(LOCAL_PATH)/manifest.xml:system/vendor/manifest.xml
-    
+vintf_fragments += \
+    $(LOCAL_PATH)/manifest.xml:system/vendor/manifest.xml
+
 # Key layouts
 PRODUCT_PACKAGES += \
     tegra-kbc.kl \
@@ -302,6 +302,7 @@ PRODUCT_COPY_FILES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
+    android.hardware.sensors@1.0-impl \
     sensors.tegra
 	
 # System properties
@@ -332,11 +333,7 @@ PRODUCT_PACKAGES += \
 # Vendor seccomp policy files for media components:
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/seccomp/mediaextractor.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaextractor.policy
-
-# Widevine DRM
-PRODUCT_PACKAGES += \
-    libprotobuf_shim
-
+    
 # Wifi
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/dhcpcd.conf:$(TARGET_COPY_OUT_VENDOR)/etc/dhcpcd/dhcpcd.conf
@@ -358,5 +355,5 @@ PRODUCT_PACKAGES += \
 
 # Vendor security patch level
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.lineage.build.vendor_security_patch=2018-01-05 \
+#    ro.lineage.build.vendor_security_patch=2018-01-05 \
     ro.vendor.build.security_patch=2018-01-05

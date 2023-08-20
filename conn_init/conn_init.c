@@ -69,7 +69,6 @@ void set_bt_mac(FILE *fp) {
 	property_set(BT_MAC_PROP1, addr);
 	property_set(BT_MAC_PROP2, addr);
 	chown(BT_MAC_FILE, AID_BLUETOOTH, AID_BLUETOOTH);
-	chmod(BT_MAC_FILE, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
 	
 exit:
 	return;
@@ -106,7 +105,6 @@ void set_wifi_mac(FILE *fp)
 	}
 	fprintf(wfp, "%s", addr);
 	fclose(wfp);
-	chmod(WIFI_MAC_FILE, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
 	
 exit:
 	return;

@@ -35,7 +35,7 @@ LOCAL_C_INCLUDES := frameworks/base/core/jni \
 ifneq ($(ZYGOTE_WHITELIST_PATH_EXTRA),)
     LOCAL_CFLAGS += -DPATH_WHITELIST_EXTRA=$(ZYGOTE_WHITELIST_PATH_EXTRA)
 endif
-LOCAL_SHARED_LIBRARIES := liblog
+LOCAL_SHARED_LIBRARIES := liblog libbase
 LOCAL_MODULE := libshim_zw
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_SHARED_LIBRARY)
@@ -49,12 +49,15 @@ LOCAL_VENDOR_MODULE    := true
 LOCAL_LDFLAGS_arm      += -Wl,--version-script,$(LOCAL_PATH)/intrinsics_shim.arm.map
 include $(BUILD_SHARED_LIBRARY)
 
-# libnvomxadaptor_shim
-#include $(CLEAR_VARS)
+
+
+## libnvomxadaptor_shim
+
+##include $(CLEAR_VARS)
 #LOCAL_SRC_FILES := libnvomxadaptor_shim.cpp
-#LOCAL_SHARED_LIBRARIES := libui libgui libstagefright_foundation
-#LOCAL_C_INCLUDES := framework/native/include frameworks/av/include
-#LOCAL_CFLAGS := -Wno-unused-private-field
+#LOCAL_SHARED_LIBRARIES          += libui libgui libstagefright_foundation
+#LOCAL_C_INCLUDES                += framework/native/include frameworks/av/include
+#LOCAL_CFLAGS                    += -Wno-unused-private-field
 #LOCAL_MODULE := libnvomxadaptor_shim
 #LOCAL_MODULE_TAGS := optional
 #include $(BUILD_SHARED_LIBRARY)
