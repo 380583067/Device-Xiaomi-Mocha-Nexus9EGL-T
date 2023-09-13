@@ -49,10 +49,6 @@ LOCAL_VENDOR_MODULE    := true
 LOCAL_LDFLAGS_arm      += -Wl,--version-script,$(LOCAL_PATH)/intrinsics_shim.arm.map
 include $(BUILD_SHARED_LIBRARY)
 
-
-
-## libnvomxadaptor_shim
-
 ##include $(CLEAR_VARS)
 #LOCAL_SRC_FILES := libnvomxadaptor_shim.cpp
 #LOCAL_SHARED_LIBRARIES          += libui libgui libstagefright_foundation
