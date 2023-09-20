@@ -19,6 +19,9 @@ LOCAL_PATH := device/xiaomi/mocha
 $(call inherit-product-if-exists, vendor/xiaomi/mocha/mocha-vendor.mk)
 $(call inherit-product-if-exists, vendor/xiaomi/mocha/consolemode-blobs.mk)
 
+#APEX
+PRODUCT_COMPRESSED_APEX := false
+
 # Audio
  USE_XML_AUDIO_POLICY_CONF := 1
 
