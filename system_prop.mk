@@ -1,6 +1,7 @@
-# API
+# API y VNDK
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product.first_api_level=23
+    ro.product.first_api_level=14\
+    ro.vndk.version=9
 
 # AptX
 PRODUCT_PROPERTY_OVERRIDES += \
