@@ -39,7 +39,7 @@ on init
 start watchdogd
 
 on fs
- # mount console ramooops
+ # mount console ramoops
    mount pstore pstore /sys/fs/pstore
 
 on post-fs-data
