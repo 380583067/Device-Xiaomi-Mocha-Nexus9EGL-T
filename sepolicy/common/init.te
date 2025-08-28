@@ -42,3 +42,36 @@ allow init sysfs_mmc_host:lnk_file rw_file_perms;
 # allow init to change power hints node
 allow init sysfs_netcfg:lnk_file rw_file_perms;
 allow init debugfs_cluster:file rw_file_perms;
+
+#BT_Loader
+type init_btloader_exec, exec_type, file_type;
+type init_btloader, domain;
+
+init_daemon_domain(init_btloader)
+
+#Kernel
+allow init kernel:system module_request;
+
+#Sdcard
+allow init tmpfs:lnk_file create;
+
+#pstore
+allow init pstorefs:dir mounton;
+
+allow init ram_device:blk_file write;
+
+allow init sysfs:file setattr;
+
+allow init vendor_file:file execute_no_trans;
+
+# 允许init进程在sysfs和cgroup目录读写
+allow init sysfs:dir { read write open create };
+allow init cgroup:file { read write open create };
+
+# 允许init创建/acct/uid目录（日志中出现的失败操作）
+allow init tmpfs:dir { create write };
+
+# 允许init进程访问cgroup文件系统
+allow init cgroupfs:file { read write };
+allow init sysfs:file { read write };
+

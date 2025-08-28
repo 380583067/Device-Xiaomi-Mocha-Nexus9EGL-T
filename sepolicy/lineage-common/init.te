@@ -12,6 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#Light
+type hal_light_service, domain;
+type hal_light_service_exec, exec_type, file_type;
+init_daemon_domain(hal_light_service)
+
+#Power
+type hal_power_service, domain;
+type hal_power_service_exec, exec_type, file_type;
+
+init_daemon_domain(hal_power_service)
+
 # fstab formattable flag
 allow init rpx_block_device:blk_file rw_file_perms;
 
@@ -21,3 +32,9 @@ allow init proc_wmem_max_writable:file rw_file_perms;
 
 # Shims
 allow init audioserver:process noatsecure;
+
+#vibrator
+type hal_vibrator_service, domain;
+type hal_vibrator_service_exec, exec_type, file_type;
+
+init_daemon_domain(hal_vibrator_service)

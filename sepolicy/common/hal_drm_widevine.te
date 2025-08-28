@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2016, NVIDIA CORPORATION.  All rights reserved.
+# Copyright (c) 2018, NVIDIA CORPORATION.  All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,19 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# i2c control
-allow healthd sysfs_nvi2c:dir r_dir_perms;
-allow healthd sysfs_nvi2c:{ file lnk_file } rw_file_perms;
-allow healthd device:dir { open read };
+type hal_drm_widevine, domain;
+hal_server_domain(hal_drm_widevine, hal_drm)
 
-# Battery Dump State
-allow healthd permission_service:service_manager find;
-
-# allow to write to nvfeedback.log
-allow healthd anr_data_file:file write;
-
-# power State
-allow healthd sysfs_power_supply:file r_file_perms;
-
-# allow to wake alarm
-allow healthd self:capability2 wake_alarm;
+type hal_drm_widevine_exec, file_type, exec_type, vendor_file_type;
+init_daemon_domain(hal_drm_widevine)

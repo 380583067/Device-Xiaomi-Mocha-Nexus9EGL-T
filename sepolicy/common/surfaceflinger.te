@@ -69,3 +69,10 @@ allow surfaceflinger hwc_data_file:dir {create_dir_perms};
 
 # Allow GL to access ptimer_scale_factor
 #allow surfaceflinger sysfs_gpu:file r_file_perms;
+
+allow surfaceflinger sysfs:file { read open };
+allow surfaceflinger sysfs:dir { search };
+
+# 允许 SurfaceFlinger 访问 GPU 设备和系统属性
+allow surfaceflinger dev:chr_file { open ioctl };
+allow surfaceflinger sysfs:file { read open getattr };
