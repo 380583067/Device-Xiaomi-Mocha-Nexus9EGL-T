@@ -1,0 +1,20 @@
+diff --git a/libm/libm.map.txt b/libm/libm.map.txt
+index a931b933b..29d890922 100644
+--- a/libm/libm.map.txt
++++ b/libm/libm.map.txt
+@@ -294,8 +294,13 @@ LIBC_O { # introduced=O
+     ctanl;
+ } LIBC;
+ 
+-LIBC_DEPRECATED { # arm platform-only
+-  global: # arm
++LIBC_PRIVATE { # arm mips platform-only
++  global: # arm mips
++    ___Unwind_Backtrace; # arm
++    ___Unwind_ForcedUnwind; # arm
++    ___Unwind_RaiseException; # arm
++    ___Unwind_Resume; # arm
++    ___Unwind_Resume_or_Rethrow; # arm
+     __aeabi_d2lz; # arm
+     __aeabi_d2ulz; # arm
+     __aeabi_f2lz; # arm

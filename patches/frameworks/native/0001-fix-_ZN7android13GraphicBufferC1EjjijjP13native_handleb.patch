@@ -6,22 +6,8 @@ Subject: [PATCH] fix "_ZN7android13GraphicBufferC1EjjijjP13native_handleb"
 
 Signed-off-by: bilux <i.bilux@gmail.com>
 ---
- libs/ui/Android.bp        | 1 +
  libs/ui/GraphicBuffer.cpp | 2 ++
- 2 files changed, 3 insertions(+)
 
-diff --git a/libs/ui/Android.bp b/libs/ui/Android.bp
-index 25c353a..03c71fb 100644
---- a/libs/ui/Android.bp
-+++ b/libs/ui/Android.bp
-@@ -26,6 +26,7 @@ cc_library_shared {
-     ],
-     cppflags: [
-         "-Weverything",
-+        "-Werror",
- 
-         // The static constructors and destructors in this library have not been noted to
-         // introduce significant overheads
 diff --git a/libs/ui/GraphicBuffer.cpp b/libs/ui/GraphicBuffer.cpp
 index 7670ac6..8177f06 100644
 --- a/libs/ui/GraphicBuffer.cpp
