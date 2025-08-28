@@ -96,8 +96,8 @@ on init
     mount tmpfs tmpfs /mnt/tmp mode=0775,gid=1003
 
 
-# Loads real wifi and bt mac from /dev/block/mmcblk0p15service conn_wifi /system/vendor/bin/conn_init -op
-    service conn_wifi /system/vendor/bin/conn_init -op
+# Loads real wifi and bt mac from /dev/block/platform/sdhci-tegra.3/by-name/BKB
+    service conn_wifi /vendor/bin/conn_init -op
     class main
     user root
     group root

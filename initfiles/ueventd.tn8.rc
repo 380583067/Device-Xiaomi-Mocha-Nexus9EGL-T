@@ -38,6 +38,9 @@
 /dev/nvhost-ctrl-vi.1  0660   media  camera
 /dev/nvhost-ctrl-isp   0660   media  camera
 /dev/nvhost-ctrl-isp.1 0660   media  camera
+/dev/nvhost-ctrl       0666   root   root
+/dev/nvhost-gpu        0666   root   root
+/dev/nvmap             0666   root   root
 /dev/nvhost-vic        0666   root   root
 /dev/nvhost-gpu        0666   root   root
 /dev/nvhost-tsec       0666   root   root
@@ -94,6 +97,7 @@
 /sys/devices/platform/host1x gk20a.0/elpg_enable 0664 system system
 /sys/devices/platform/host1x gk20a.0/blcg_enable 0664 system system
 /sys/devices/platform/host1x tegradc.0/enable 0664 system system
+# sensors
 /dev/iio:device*	0660	system	system
 /sys/devices/platform/tegra12-i2c.0/i2c-0/0-00*	enable	0660	system	system
 /sys/devices/platform/tegra12-i2c.0/i2c-0/0-00*	buffer/enable	0660	system	system
@@ -475,3 +479,14 @@
 /sys/devices/platform/tegra12-i2c.0/i2c-0/0-0068/iio:device* scan_elements/in_timestamp_index 0660 system system
 /sys/devices/platform/tegra12-i2c.0/i2c-0/0-0068/iio:device* scan_elements/in_timestamp_type 0660 system system
 /sys/devices/platform/tegra12-i2c.0/i2c-0/0-0068/iio:device* trigger/current_trigger 0660 system system
+
+# didim
+/sys/devices/platform/host1x/tegradc.0	smartdimmer/aggressiveness	0660 root graphics
+/sys/devices/platform/host1x/tegradc.0	smartdimmer/enable		0660 root graphics
+/sys/devices/platform/host1x/tegradc.0	smartdimmer/sd_window		0660 root graphics
+/sys/devices/platform/host1x/tegradc.0	smartdimmer/sd_window_enable	0660 root graphics
+
+# Charger
+/sys/class/power_supply/battery  charging_enabled    0660    system  system
+
+

@@ -1,29 +1,80 @@
-#Copyright (c) 2011-2014 NVIDIA Corporation.  All Rights Reserved.
+# Copyright (c) 2011-2014 NVIDIA Corporation.  All Rights Reserved.
 #
-#NVIDIA Corporation and its licensors retain all intellectual property and
-#proprietary rights in and to this software and related documentation.  Any
-#use, reproduction, disclosure or distribution of this software and related
-#documentation without an express license agreement from NVIDIA Corporation
-#is strictly prohibited.
+# NVIDIA Corporation and its licensors retain all intellectual property and
+# proprietary rights in and to this software and related documentation.  Any
+# use, reproduction, disclosure or distribution of this software and related
+# documentation without an express license agreement from NVIDIA Corporation
+# is strictly prohibited.
 
 import /vendor/etc/init/hw/init.comms.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug mode=0755
 
+    chmod 0775 /sys/fs/cgroup
+    mkdir /sys/fs/cgroup/uid_0 0750 root root
+
+    # 挂载cgroup根目录
+    mount tmpfs none /sys/fs/cgroup mode=0755
+
+    # 挂载核心子系统
+    mkdir /sys/fs/cgroup/blkio 0755 root root
+    mount cgroup none /sys/fs/cgroup/blkio cgroup=blkio
+
+    # cpu和cpuacct子系统
+    mkdir /sys/fs/cgroup/cpu 0755 root root
+    mount cgroup none /sys/fs/cgroup/cpu cgroup=cpu
+    mkdir /sys/fs/cgroup/cpuacct 0755 root root
+    mount cgroup none /sys/fs/cgroup/cpuacct cgroup=cpuacct
+
+    # 解决内存相关cgroup错误
+    mkdir /sys/fs/cgroup/memory 0755 root root
+    mount cgroup none /sys/fs/cgroup/memory cgroup=memory
+
+    # 其他必需子系统
+    mkdir /sys/fs/cgroup/devices 0755 root root
+    mount cgroup none /sys/fs/cgroup/devices cgroup=devices
+    mkdir /sys/fs/cgroup/freezer 0755 root root
+    mount cgroup none /sys/fs/cgroup/freezer cgroup=freezer
+
+    # 添加cpuset子系统配置
+    mkdir /sys/fs/cgroup/cpuset 0755 root root
+    mount cgroup none /sys/fs/cgroup/cpuset cgroup=cpuset
+
+    # 为surfaceflinger（uid=1041）绑定cgroup
+    mkdir /sys/fs/cgroup/cpuset/surfaceflinger 0750 root root
+    write /sys/fs/cgroup/cpuset/surfaceflinger/cpus 0-3
+    write /sys/fs/cgroup/cpuset/surfaceflinger/mems 0
+    chown 1041:1041 /sys/fs/cgroup/cpuset/surfaceflinger/tasks
+
 on init
+    # 解决内存迁移和权限问题
+    write /sys/fs/cgroup/memory/memory.move_charge_at_immigrate 1
+    chown root system /sys/fs/cgroup/memory/tasks
+    chmod 0660 /sys/fs/cgroup/memory/tasks
+
+    # 配置交换分区相关cgroup（优化内存压力场景）
+    mkdir /sys/fs/cgroup/memory/sw 0750 root system
+    write /sys/fs/cgroup/memory/sw/memory.swappiness 100
+    write /sys/fs/cgroup/memory/sw/memory.move_charge_at_immigrate 1
+    chown root system /sys/fs/cgroup/memory/sw/tasks
+    chmod 0660 /sys/fs/cgroup/memory/sw/tasks
+    
+    # 后台进程内存配置
+    mkdir /sys/fs/cgroup/memory/bg 0750 root system
+    write /sys/fs/cgroup/memory/bg/memory.swappiness 140
+    write /sys/fs/cgroup/memory/bg/memory.move_charge_at_immigrate 1
+    chown root system /sys/fs/cgroup/memory/bg/tasks
+    chmod 0660 /sys/fs/cgroup/memory/bg/tasks
+
     mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
     mkdir /storage/sdcard1 0700 root sdcard_r
     
+    # Mount and bind audio_policy_configuration.xml in /vendor
+    mount none /system/etc/audio_policy_configuration.xml /vendor/etc/audio/audio_policy_configuration.xml bind
+
     # Support legacy paths
     symlink /sdcard /mnt/sdcard
-    #symlink /sdcard /storage/sdcard0
-
-    # create directory for mounting usb drives
-    # mkdir /mnt/media_rw/usbdrive 0700 media_rw media_rw
-    # mkdir /storage/usbdrive 0700 root root
-    # symlink /mnt/media_rw/usbdrive /storage/usbdrive
-    # symlink /mnt/media_rw/usbdrive /usbdrive
 
     # create directory for mounting calibration partition
     mkdir /mnt/vendor/factory 0666 system system
@@ -32,15 +83,9 @@ on init
     # create directory for mounting user calibration partition
     mkdir /mnt/usercalib 0771 system system
 
-    #radio.noril true  
-    setprop ro.radio.noril true
-
-
-start watchdogd
-
 on fs
- # mount console ramoops
-   mount pstore pstore /sys/fs/pstore
+    # mount console ramooops
+    mount pstore pstore /sys/fs/pstore
 
 on post-fs-data
     # We chown/chmod /mnt/usercalib again so because mount is run as root + defaults
@@ -57,11 +102,8 @@ on post-fs-data
     restorecon_recursive /usercalib
 
     mkdir /data/vendor/dhcp 0770 dhcp dhcp
-    
     mkdir /data/vendor/hwc 0771 system graphics
-    
-     mkdir /data/vendor/mediadrm 0770 mediadrm mediadrm
-
+    mkdir /data/vendor/mediadrm 0770 mediadrm mediadrm
     mkdir /data/vendor/nvcam 0700 media camera
 
     chown dhcp dhcp /data/vendor/dhcp
@@ -72,35 +114,38 @@ on post-fs-data
     # create directory for mediaserver EGL blob cache
     mkdir /data/vendor/mediaserver 0770 media media
 
-  # backlight
-    chown system system /sys/class/backlight/lcd-backlight/brightness
+    # backlight
+    chown system system /sys/devices/platform/tegra12-i2c.0/i2c-0/0-002c/backlight/lcd-backlight/brightness
+
+    # Access permission for input_suspend
+    chown system system /sys/class/power_supply/battery/input_suspend
+    chmod 0666 /sys/class/power_supply/battery/input_suspend
 
 # Set up HDCP
 import /vendor/etc/init/hw/init.hdcp.rc
 
 on boot
-   
-# charger
+    # charger
     chown system system /sys/devices/platform/tegra12-i2c.0/i2c-1/1-006b/disabled_by_user
 
-#dt2w
+    # dt2w
     chown system system /sys/devices/platform/tegra12-i2c.0/i2c-3/3-004a/wakeup_mode
     chown system system /sys/devices/platform/tegra12-i2c.0/i2c-3/3-0020/input/input0/wake_gesture
     chown system system /sys/devices/platform/tegra12-i2c.0/i2c-3/3-0020/input/input3/wake_gesture
 
-## cmhw permissions
-# key disabler
+    ## cmhw permissions
+    # key disabler
     chown system system /sys/devices/platform/tegra12-i2c.0/i2c-3/3-004a/enable_keys
     chown system system /sys/devices/platform/tegra12-i2c.0/i2c-3/3-0020/input/input0/0dbutton
     chown system system /sys/devices/platform/tegra12-i2c.0/i2c-3/3-0020/input/input3/0dbutton
 
-# vibrator intensity
+    # vibrator intensity
     chown system system /sys/vibrator/pwmvalue
 
-# CMU
+    # CMU
     chown system system /sys/devices/platform/host1x/tegradc.0/cmu_enable
 
-# power
+    # power
     chown system system /sys/kernel/tegra_cap/core_cap_level
     chown system system /sys/kernel/tegra_cap/core_cap_state
     chown system system /sys/kernel/tegra_volt_cap/cpu_volt
@@ -108,7 +153,7 @@ on boot
     chown system system /sys/module/cpu_tegra/parameters/cpu_user_cap
     chown system system /sys/devices/platform/host1x/gk20a.0/enable_3d_scaling
 
-# audio
+    # audio
     chmod 0664 /sys/power/suspend/mode
     chown system audio /sys/power/suspend/mode
 
@@ -228,7 +273,3 @@ service bugreport /system/bin/dumpstate -d -p -B -o /data/data/com.android.shell
 # unified scaling setup
 import /vendor/etc/init/hw/init.ussrd.rc
 
-# Thie yields each tegra wdt expiration to be at 30 secs and fourth expiration for reboot at 120 secs.
-service watchdogd /system/watchdogd 10 110
-    class core
-    seclabel u:r:watchdogd:s0
