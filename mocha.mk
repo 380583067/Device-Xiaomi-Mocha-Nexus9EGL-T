@@ -28,8 +28,8 @@ PRODUCT_COMPRESSED_APEX := false
  PRODUCT_PACKAGES += \
 	android.hardware.audio@6.0 \
 	android.hardware.audio@6.0-impl \
-	android.hardware.audio.effect@6.0-impl \
-	libmocha_audio.so
+	android.hardware.audio.effect@6.0-impl 
+	
 	
 PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/a2dp_in_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_in_audio_policy_configuration.xml \
@@ -59,10 +59,8 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PACKAGES += \
     libbt-vendor \
-    libldacBT_dec \
     android.hardware.bluetooth@1.0-impl \
     android.hardware.bluetooth@1.0-service \
-    android.hardware.bluetooth.a2dp@1.0-impl \
     android.hardware.bluetooth.audio@2.0-impl
 
 # Camera
@@ -91,13 +89,11 @@ PRODUCT_COPY_FILES += \
 
 # Configstore HAL
 PRODUCT_PACKAGES += \
-    android.hardware.configstore@1.1-impl \
-    android.hardware.configstore@1.1-service
+   android.hardware.configstore@1.1-service
 
 # Custom tiles
 PRODUCT_PACKAGES += \
-    ChargerTile \
-    PerformanceTile
+   PerformanceTile
 
 # Dexpreopt
 PRODUCT_DEXPREOPT_SPEED_APPS += \
@@ -108,17 +104,9 @@ PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
     android.hardware.drm@1.0-service
 
-# Doze
-PRODUCT_PACKAGES += \
-    XiaomiDoze
-
 # fastbootd
 PRODUCT_PACKAGES += \
     fastbootd
-
-# Filesystem management tools
-PRODUCT_PACKAGES += \
-    setup_fs
 
 # FM
 #PRODUCT_PACKAGES += \
@@ -133,7 +121,6 @@ TARGET_TEGRA_VERSION := t124
 PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
     android.hardware.graphics.allocator@2.0-service \
-    android.hardware.graphics.composer@2.1-impl \
     android.hardware.graphics.composer@2.1-service \
     android.hardware.graphics.mapper@2.0-impl \
     android.hardware.renderscript@1.0-impl \
@@ -178,7 +165,6 @@ PRODUCT_PACKAGES += \
 
 # Media config
 PRODUCT_PACKAGES += \
-    android.hardware.media.omx@1.0-impl \
     android.hardware.media.omx@1.0-service
 
 PRODUCT_COPY_FILES += \
@@ -261,31 +247,22 @@ PRODUCT_PACKAGES += \
 # Power
 PRODUCT_PACKAGES += \
     android.hardware.power@1.0-service.mocha \
-    android.hardware.vendor.lineage.power@1.0-impl \
-    power.tegra
-
+    
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.tn8 \
     init.cal.rc \
     init.comms.rc \
-    init.icera.rc \
     init.hdcp.rc \
-    init.ray_touch.rc \
     init.t124.rc \
     init.tegra.rc \
     init.tlk.rc \
     init.tn8.rc \
     init.tn8.usb.rc \
     init.tn8_common.rc \
-    init.ussrd.rc \
-    power.tn8.rc \
-    power.mocha.rc \
     ueventd.tn8.rc \
-    ussrd.conf \
-    init.nvgpu_shims.rc \
-    ussr_setup \
-    wireguard.rc
+    init.nvgpu_shims.rc 
+    
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/initfiles/init.renderer.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.renderer.sh
@@ -300,8 +277,7 @@ PRODUCT_PACKAGES += \
 
 # Thermal
 PRODUCT_PACKAGES += \
-    android.hardware.thermal@1.0-service-nvidia \
-    thermalhal.tn8.xml
+   thermalhal.tn8.xml
 
 # TimeKeep
 PRODUCT_PACKAGES += \
@@ -314,7 +290,7 @@ PRODUCT_PACKAGES += \
 
 # USB HAL
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.0-service-basic
+    android.hardware.usb@1.0-service.basic
 
 # Use legacy ADB USB support
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -342,10 +318,6 @@ PRODUCT_PACKAGES += \
     conn_init \
     wpa_supplicant \
     wpa_supplicant.conf
-
-PRODUCT_PACKAGES += \
-    wireguard \
-    wireguard.rc
 
 # Vendor security patch level
 #PRODUCT_PROPERTY_OVERRIDES += \
