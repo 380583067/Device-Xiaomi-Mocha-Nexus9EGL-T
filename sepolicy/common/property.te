@@ -13,8 +13,6 @@
 # limitations under the License.
 
 # For ro.sf.lcd_density
-type mediacodec_prop, property_type;
-type surfaceflinger_prop, property_type;
 type thermal_prop, property_type;
 type phs_prop, property_type;
 
@@ -42,8 +40,6 @@ type udc_prop, property_type;
 # For power_button_recovery
 type power_button_recovery_prop, property_type;
 
-# For ro.bt.bdaddr_path
-type bdaddr_path_prop, property_type;
 
 # For handshake between sytem process and vold
 type handshake_sys_vold_prop, property_type;
@@ -60,5 +56,3 @@ type frost_oqa_prop, property_type;
 # For properties related to gamestreaming
 type gamestreaming_prop, property_type;
 
-# For ro.bt.bdaddr_path
-type bdaddr_path_prop, property_type;
