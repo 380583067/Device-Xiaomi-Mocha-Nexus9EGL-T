@@ -104,6 +104,7 @@ BUILD_BROKEN_DUP_RULES := true
 
 # HIDL Manifest
 DEVICE_MANIFEST_FILE := $(LOCAL_PATH)/manifest.xml
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := vendor/lineage/config/device_framework_matrix.xml
 PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := true
 
 # Include
