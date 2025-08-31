@@ -148,7 +148,7 @@ TARGET_KERNEL_ADDITIONAL_FLAGS := \
 
 
 # LINEAGEHW
-BOARD_HARDWARE_CLASS := $(LOCAL_PATH)/lineagehw
+JAVA_SOURCE_OVERLAYS := org.lineageos.hardware|$(LOCAL_PATH)/lineagehw|**/*.java
 
 # Malloc
 MALLOC_SVELTE := true
