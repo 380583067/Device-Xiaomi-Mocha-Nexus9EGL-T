@@ -170,6 +170,10 @@ MAX_EGL_CACHE_ENTRY_SIZE := 262144
 # PowerHAL
 TARGET_POWERHAL_VARIANT := tegra
 
+# Properties
+TARGET_SYSTEM_PROP += device/xiaomi/mocha/system.prop
+TARGET_PRODUCT_PROP += device/xiaomi/mocha/product.prop
+
 # Recovery
 TARGET_RECOVERY_DEVICE_DIRS += device/xiaomi/mocha
 TARGET_RECOVERY_FSTAB := device/xiaomi/mocha/initfiles/fstab.tn8
