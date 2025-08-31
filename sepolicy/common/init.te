@@ -71,7 +71,4 @@ allow init cgroup:file { read write open create };
 # 允许init创建/acct/uid目录（日志中出现的失败操作）
 allow init tmpfs:dir { create write };
 
-# 允许init进程访问cgroup文件系统
-allow init cgroupfs:file { read write };
-allow init sysfs:file { read write };
 
