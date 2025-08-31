@@ -91,10 +91,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
    android.hardware.configstore@1.1-service
 
-# Custom tiles
-PRODUCT_PACKAGES += \
-   PerformanceTile
-
 # Dexpreopt
 PRODUCT_DEXPREOPT_SPEED_APPS += \
     SystemUI
