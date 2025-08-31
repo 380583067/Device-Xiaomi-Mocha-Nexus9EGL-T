@@ -152,9 +152,9 @@ PRODUCT_PACKAGES += \
     libhidltransport \
     libhwbinder
 
-# HIDL Manifest
-vintf_fragments += \
-    $(LOCAL_PATH)/manifest.xml:system/vendor/manifest.xml
+# Gatekeeper
+PRODUCT_PACKAGES += \
+    android.hardware.gatekeeper@1.0-service.software
 
 # Key layouts
 PRODUCT_PACKAGES += \
