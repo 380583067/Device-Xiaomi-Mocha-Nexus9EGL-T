@@ -128,9 +128,15 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-service \
     android.hardware.graphics.composer@2.1-service \
     android.hardware.graphics.mapper@2.0-impl \
-    android.hardware.renderscript@1.0-impl \
-    libs \
-    libshim_atomic
+    android.hardware.renderscript@1.0-impl 
+
+# Shims
+PRODUCT_PACKAGES += \
+    libnvomxadaptor_shim \
+    libshim_atomic \
+    libshim_camera \
+    libshim_zw \
+    libs
 
 #GO
 $(call inherit-product, device/xiaomi/mocha/go_mocha.mk)
