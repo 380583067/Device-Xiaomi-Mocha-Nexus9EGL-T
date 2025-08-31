@@ -271,9 +271,9 @@ PRODUCT_PACKAGES += \
     init.tn8.rc \
     init.tn8.usb.rc \
     init.tn8_common.rc \
+    power.tn8.rc \
     ueventd.tn8.rc \
-    init.nvgpu_shims.rc 
-    
+    init.nvgpu_shims.rc
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/initfiles/init.renderer.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.renderer.sh
