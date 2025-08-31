@@ -281,10 +281,14 @@ PRODUCT_COPY_FILES += \
 # Sensors
 PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl \
+    android.hardware.sensors@1.0-service \
     sensors.tegra
-	
-# System properties
--include $(LOCAL_PATH)/system_prop.mk
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/sensors/_hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/_hals.conf
+
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += device/xiaomi/mocha
 
 # Thermal
 PRODUCT_PACKAGES += \
