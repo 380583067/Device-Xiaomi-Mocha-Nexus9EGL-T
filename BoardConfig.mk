@@ -184,6 +184,11 @@ SELINUX_IGNORE_NEVERALLOWS := true
 BOARD_SEPOLICY_DIRS += $(LOCAL_PATH)/sepolicy/mocha \
                        $(LOCAL_PATH)/sepolicy/lineage-common \
                        $(LOCAL_PATH)/sepolicy/common
+
+BOARD_SEPOLICY_M4DEFS += \
+    hal_perf_default=vendor_hal_perf_default \
+    hal_perf_hwservice=vendor_hal_perf_hwservice \
+    hal_perf_default_exec=vendor_hal_perf_default_exec
                       
 # SHIMS
 TARGET_LD_SHIM_LIBS := \
