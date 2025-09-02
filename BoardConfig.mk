@@ -14,7 +14,6 @@
 # limitations under the License.
 #
 
-BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 # Path
 LOCAL_PATH := device/xiaomi/mocha
 
@@ -186,9 +185,9 @@ BOARD_OVERRIDE_RS_CPU_VARIANT_32 := cortex-a15
 
 # SELinux
 SELINUX_IGNORE_NEVERALLOWS := true
-BOARD_SEPOLICY_DIRS += $(LOCAL_PATH)/sepolicy/mocha \
-                       $(LOCAL_PATH)/sepolicy/lineage-common \
-                       $(LOCAL_PATH)/sepolicy/common
+include device/nvidia/sepolicy/sepolicy.mk
+BOARD_SEPOLICY_DIRS += \
+                       device/xiaomi/mocha/sepolicy/mocha
 
 BOARD_SEPOLICY_M4DEFS += \
     hal_perf_default=vendor_hal_perf_default \
@@ -206,6 +205,9 @@ TARGET_THERMALHAL_VARIANT := tegra
 # WEBGL in WebKit
 ENABLE_WEBGL := true
 
+# Use unified vendor
+TARGET_TEGRA_VARIANT := shield
+
 # Wifi related defines
 BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
@@ -218,7 +220,6 @@ WIFI_DRIVER_FW_PATH_AP           := "/vendor/firmware/fw_bcmdhd_apsta.bin"
 WIFI_DRIVER_FW_PATH_PARAM        := "/sys/module/bcmdhd/parameters/firmware_path"
 #WIFI_DRIVER_MODULE_ARG           := "iface_name=wlan0"
 #WIFI_DRIVER_MODULE_NAME          := "bcmdhd"
-WIFI_HIDL_FEATURE_DISABLE_AP_MAC_RANDOMIZATION := true
 WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 
                

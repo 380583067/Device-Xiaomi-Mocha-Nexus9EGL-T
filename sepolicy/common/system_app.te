@@ -102,6 +102,8 @@ allow system_app sysfs_gamepad:file rw_file_perms;
 r_dir_file(system_app, rpx_block_device)
 r_dir_file(system_app, rpx_file)
 
+# Variable refresh rate
+allow system_app sysfs_vrr:file rw_file_perms;
 
 #Shield Remote
 allow system_app uhid_device:chr_file rw_file_perms;

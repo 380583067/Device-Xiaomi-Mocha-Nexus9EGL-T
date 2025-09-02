@@ -13,6 +13,7 @@
 # limitations under the License.
 
 # upnpfuse
+allow priv_app alarm_boot_prop:file { open read getattr };
 allow priv_app vold:fifo_file { read write getattr };
 allow priv_app upnpfuse_cache_file:dir create_dir_perms;
 allow priv_app upnpfuse_cache_file:file create_file_perms;
@@ -32,3 +33,4 @@ allow priv_app asec_apk_file:file r_file_perms;
 
 # Allow getattr access permission to app specific directories
 allow priv_app system_app_data_file:dir getattr;
+allow priv_app fac_file:filesystem getattr;
