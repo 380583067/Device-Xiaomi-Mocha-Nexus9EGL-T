@@ -19,10 +19,11 @@ BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 LOCAL_PATH := device/xiaomi/mocha
 
 # Audio
+USE_XML_AUDIO_POLICY_CONF := 1
+USE_CUSTOM_AUDIO_POLICY  := 1
 BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_ALSA_AUDIO := true
-BOARD_USES_TINYHAL_AUDIO := false
-TARGET_LD_SHIM_LIBS := /system/vendor/lib/hw/audio.primary.vendor.tegra.so|libmocha_audio.so
+BOARD_USES_TINYHAL_AUDIO := true
 
 # Architecture
 TARGET_CPU_ABI := armeabi-v7a
