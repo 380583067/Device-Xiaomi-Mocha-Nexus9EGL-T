@@ -2,7 +2,7 @@
 #include <dlfcn.h>
 #include <stdlib.h>
 
-#include <log/log.h>
+#include <cutils/log.h>
 
 static typeof(vsnprintf) *vsnprintf_real = NULL;
 
@@ -26,3 +26,4 @@ extern "C" int haxprintf(char* s, size_t n, const char* fmt, va_list ap) {
 
   return 0;
 }
+
