@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Allow untrusted apps to access tsecb dev node
+allow untrusted_app alarm_boot_prop:file { open read };
+allow untrusted_app tsec_device:chr_file rw_file_perms;
 
 # Access to read SOC family
 r_dir_file(untrusted_app, sysfs_soc)

@@ -1,4 +1,4 @@
-# Copyright (c) 2015, NVIDIA CORPORATION.  All rights reserved.
+# Copyright (c) 2016, NVIDIA CORPORATION.  All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,14 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Allow to write to nvfeedback log file
-allow keystore anr_data_file:file write;
+set_prop(mediacodec, mediacodec_prop)
 
-# 允许keystore2访问Keymint设备
-allow keystore2 keymint_device:device { open read write };
+r_dir_file(mediacodec, sysfs)
+r_dir_file(mediacodec, sysfs_soc)
+#allow mediacodec sysfs_gpu:file r_file_perms;
 
-# 允许访问HAL服务接口
-allow keystore2 hwservice_manager:hwservice { find add };
-
-# 允许读取安全配置文件
-allow keystore2 system_data_file:file { read open };
+allow mediacodec power_service:service_manager find;
+allow mediacodec ussrd_service:service_manager find;
+allow mediacodec camera_device:chr_file rw_file_perms;
+allow_use_phs(mediacodec)

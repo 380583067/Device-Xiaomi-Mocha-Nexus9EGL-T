@@ -1,4 +1,4 @@
-# Copyright (c) 2015, NVIDIA CORPORATION.  All rights reserved.
+# Copyright (c) 2018, NVIDIA CORPORATION.  All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,14 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Allow to write to nvfeedback log file
-allow keystore anr_data_file:file write;
+type hal_drm_playready, domain;
+hal_server_domain(hal_drm_playready, hal_drm)
 
-# 允许keystore2访问Keymint设备
-allow keystore2 keymint_device:device { open read write };
-
-# 允许访问HAL服务接口
-allow keystore2 hwservice_manager:hwservice { find add };
-
-# 允许读取安全配置文件
-allow keystore2 system_data_file:file { read open };
+type hal_drm_playready_exec, file_type, exec_type, vendor_file_type;
+init_daemon_domain(hal_drm_playready)
+ 
