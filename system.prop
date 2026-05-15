@@ -1,25 +1,18 @@
-# ADB
-persist.service.adb.enable=1
-persist.service.debuggable=1
-persist.sys.usb.config=mtp,adb
-persist.sys.root_access=2
-ro.debuggable=1
-setenforce=0
-
 # API
 ro.product.first_api_level=23
 
 # AptX
 persist.bt.enableAptXHD=true
 persist.service.btui.use_aptx=1
-persist.vendor.bt.a2dp_offload_cap=sbc-aptx-aptxtws-aptxhd-aac-ldac
-persist.vendor.btstack.a2dp_offload_cap=sbc-aptx-aptxtws-aptxhd-aac-ldacs
 
 # BPF
 ro.kernel.ebpf.supported=false
 
 # BT
 ro.boot.btmacaddr=03:16:6c:79:29:82
+
+# Charger
+persist.sys.chgdisabled=0
 
 # DIDIM
 persist.tegra.didim.enable=1
@@ -29,7 +22,7 @@ persist.tegra.didim.normal=3
 # DRM
 drm.service.enabled=true
 
-# fastbootd
+# Fastbootd
 ro.fastbootd.available=true
 
 # Graphics
@@ -53,22 +46,15 @@ debug.renderengine.backend=threaded
 # Lineage genuine
 persist.lineage.nofool=true
 
-# 2GB RAM set
-dalvik.vm.heapstartsize=16m
-dalvik.vm.heapgrowthlimit=192m
-dalvik.vm.heapsize=384m
-dalvik.vm.heaptargetutilization=0.75
-dalvik.vm.heapminfree=2m
-dalvik.vm.heapmaxfree=8m
-
 # LMKD options
 ro.lmk.low=1001
 ro.lmk.medium=800
+ro.lmk.high=400
 ro.lmk.critical=0
-ro.lmk.critical_upgrade=false
-ro.lmk.upgrade_pressure=100
-ro.lmk.downgrade_pressure=100
-ro.lmk.kill_heaviest_task=true
+ro.lmk.critical_upgrade=1
+ro.lmk.upgrade_pressure=80
+ro.lmk.downgrade_pressure=65
+ro.lmk.kill_heaviest_task=1
 ro.lmk.kill_timeout_ms=100
 ro.lmk.use_minfree_levels=true
 
@@ -115,4 +101,4 @@ ap.interface=wlan0
 persist.wlan.ti.calibrated=0
 
 # Don't write binary XML files
-#persist.sys.binary_xml=false
+persist.sys.binary_xml=false

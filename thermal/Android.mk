@@ -19,5 +19,4 @@ LOCAL_MODULE        := thermalhal.tn8.xml
 LOCAL_MODULE_TAGS   := optional
 LOCAL_MODULE_CLASS  := ETC
 LOCAL_SRC_FILES     := thermalhal.tn8.xml
-LOCAL_VENDOR_MODULE := true
 include $(BUILD_PREBUILT)

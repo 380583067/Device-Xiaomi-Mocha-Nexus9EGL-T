@@ -1,0 +1,4 @@
+# Audio
+ro.audio.hal.output_5dot1_support=true
+ro.audio.hal.period_size=1024
+ro.audio.hal.period_count=4
