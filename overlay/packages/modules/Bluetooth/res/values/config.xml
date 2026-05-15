@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="profile_supported_a2dp">true</bool>
+    <bool name="profile_supported_hfp">true</bool>
+    <bool name="profile_supported_avrcp">true</bool>
+    <bool name="profile_supported_hid_device">true</bool>
+    <bool name="profile_supported_pan">true</bool>
+</resources>

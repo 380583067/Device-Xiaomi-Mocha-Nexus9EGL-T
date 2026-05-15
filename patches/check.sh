@@ -1,7 +1,7 @@
 #!/bin/sh
 
 rootdirectory="$PWD"
-dirs="bionic/libm frameworks/native hardware/interfaces external/selinux"
+dirs="kernel/xiaomi/mocha"
 
 
 RED='\033[0;31m'

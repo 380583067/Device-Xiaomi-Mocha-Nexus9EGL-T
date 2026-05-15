@@ -16,7 +16,7 @@
 */
 
 #define LOG_TAG "BpCameraService"
-#include <log/Log.h>
+#include <utils/Log.h>
 #include <utils/Errors.h>
 #include <utils/String16.h>
 
@@ -333,7 +333,7 @@ public:
 
 };
 
-IMPLEMENT_META_INTERFACE(CameraService, "android.hardware.ICameraService");
+DO_NOT_DIRECTLY_USE_ME_IMPLEMENT_META_INTERFACE(CameraService, "android.hardware.ICameraService");
 
 // ----------------------------------------------------------------------
 

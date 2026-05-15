@@ -1,0 +1,53 @@
+diff --git a/arch/arm/boot/dts/tegra124-mocha.dts b/arch/arm/boot/dts/tegra124-mocha.dts
+index 1bd569cb256..8ee0fae5f9f 100644
+--- a/arch/arm/boot/dts/tegra124-mocha.dts
++++ b/arch/arm/boot/dts/tegra124-mocha.dts
+@@ -257,12 +257,12 @@
+ 			compatible = "realtek,rt5671";
+ 			reg = <0x1c>;
+ 
+-	                realtek,jd_mode = <2>;
+-	                realtek,codec_gpio = <&gpio 178 0>;
+-	                realtek,in2_diff = <1>;
+-	                realtek,in3_diff = <0>;
+-	                realtek,in4_diff = <1>;
+-	                realtek,bclk_32fs = <0 1 1 1>;
++			realtek,jd_mode = <2>;
++			realtek,codec_gpio = <&gpio 178 0>;
++			realtek,in2_diff = <1>;
++			realtek,in3_diff = <0>;
++			realtek,in4_diff = <1>;
++			realtek,bclk_32fs = <0 1 1 1>;
+ 		};
+ 
+ 		tfa9890@34 {
+@@ -288,13 +288,12 @@
+ 			nxt,fw-preset = "tfa9890_right_music.preset";
+ 			nxt,fw-eq = "tfa9890_right_music.eq";
+ 		};
+-
+ 	};
+-	
++
+ 	tegra_pwm: pwm@7000a000 {
+ 		clocks = <&tegra_car 17>;
+ 	};
+-	
++
+ 	pwmleds {
+ 		compatible = "pwm-leds";
+ 		button_led {
+@@ -309,6 +308,11 @@
+ 		compatible = "nvidia,tegra-audio-rt5671";
+ 		nvidia,hp-mute-gpios = <&gpio 185 0>;
+ 		nvidia,i2s-param-hifi = <0 0 2 16 2 48000>;
+-		};
+-		};
++	};
+ 
++	udc@7d000000 {
++		status = "okay";
++		nvidia,qc2-input-voltage = <TEGRA_USB_QC2_9V>;
++		nvidia,qc2-current-limit-ua = <2000000>;
++	};
++};

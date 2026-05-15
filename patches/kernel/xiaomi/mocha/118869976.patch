@@ -1,0 +1,15 @@
+diff --git a/arch/arm/mach-tegra/board-mocha.c b/arch/arm/mach-tegra/board-mocha.c
+index 32d3a32dc65..cd76d49e541 100644
+--- a/arch/arm/mach-tegra/board-mocha.c
++++ b/arch/arm/mach-tegra/board-mocha.c
+@@ -483,8 +483,8 @@ static void ardbeg_usb_init(void)
+ 			 * over USB vbus that the board supports if we use
+ 			 * a quick charge 2 wall charger.
+ 			 */
+-			tegra_udc_pdata.qc2_voltage = TEGRA_USB_QC2_12V;
+-			tegra_udc_pdata.u_data.dev.qc2_current_limit_ma = 1300;
++			tegra_udc_pdata.qc2_voltage = TEGRA_USB_QC2_9V;
++			tegra_udc_pdata.u_data.dev.qc2_current_limit_ma = 2000;
+ 
+ 			/* charger needs to be set to 3A - h/w will do 2A  */
+ 			tegra_udc_pdata.u_data.dev.dcp_current_limit_ma = 3000;
