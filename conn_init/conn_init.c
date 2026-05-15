@@ -19,7 +19,7 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <sys/stat.h>
 #define TAG "conn_init"
 #define MAC_PARTITION1 "/dev/block/platform/sdhci-tegra.3/by-name/BKB"
 #define MAC_PARTITION2 "/dev/block/platform/700b0600.sdhci/by-name/BKB"
@@ -27,8 +27,8 @@
 #define BT_MAC_PROP "ro.bt.bdaddr_path"
 #define BT_MAC_PROP1 "persist.service.bdroid.bdaddr"
 #define BT_MAC_PROP2 "ro.boot.btmacaddr"
-#define WIFI_MAC_FILE "/data/mocha_macaddr.txt"
-#define BT_MAC_FILE "/data/mocha_btmacaddr.txt"
+#define WIFI_MAC_FILE "/vendor/etc/mocha_macaddr.txt"
+#define BT_MAC_FILE "/vendor/etc/mocha_btmacaddr.txt"
 #define BT_MAC_TAG "XIAOMIBT!"
 #define WIFI_MAC_TAG "XIAOMIWF!"
 
@@ -69,6 +69,7 @@ void set_bt_mac(FILE *fp) {
 	property_set(BT_MAC_PROP1, addr);
 	property_set(BT_MAC_PROP2, addr);
 	chown(BT_MAC_FILE, AID_BLUETOOTH, AID_BLUETOOTH);
+	chmod(BT_MAC_FILE, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
 	
 exit:
 	return;
@@ -105,6 +106,7 @@ void set_wifi_mac(FILE *fp)
 	}
 	fprintf(wfp, "%s", addr);
 	fclose(wfp);
+	chmod(WIFI_MAC_FILE, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
 	
 exit:
 	return;
