@@ -35,7 +35,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PACKAGES += \
     android.hardware.audio.service \
-    android.hardware.audio@7.1-impl \
+    android.hardware.audio@7.0-impl \
     android.hardware.audio.effect@7.0-impl \
     android.hardware.soundtrigger@2.0-impl \
     audio.usb.default \
@@ -84,9 +84,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/camera/model_frontal.xml:system/etc/model_frontal.xml
 
 PRODUCT_PACKAGES += \
+    camera.device@1.0-impl \
     camera.device@3.2-impl \
     android.hardware.camera.provider@2.4-impl \
-    camera.tegra \
     libmocha_camera \
     libmocha_omx \
     libpowerservice_client \
@@ -126,9 +126,13 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     fastbootd
 
-# FM
+# FM Radio (Broadcom) - Disabled, missing dependencies
 PRODUCT_PACKAGES += \
-    android.hardware.broadcastradio@1.0-impl
+    android.hardware.broadcastradio@1.0-impl \
+    FMRadio \
+    libfmjni \
+    libfmradio.v4l2-fm \
+    brcm-uim-sysfs
 
 # Graphics
 PRODUCT_AAPT_CONFIG += xlarge large
