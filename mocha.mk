@@ -22,10 +22,6 @@ $(call inherit-product-if-exists, vendor/xiaomi/mocha/consolemode-blobs.mk)
 # API
 PRODUCT_PACKAGES += $(PRODUCT_PACKAGES_SHIPPING_API_LEVEL_33)
 
-# APEX
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/ld.config.txt:$(TARGET_COPY_OUT_SYSTEM)/etc/swcodec/ld.config.txt
-
 # Audio
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio.mocha.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio.mocha.xml \
@@ -53,16 +49,22 @@ PRODUCT_PACKAGES += \
 
 # Audio configuration
 PRODUCT_COPY_FILES += \
-    frameworks/av/services/audiopolicy/config/bluetooth_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_audio_policy_configuration.xml \
+    frameworks/av/services/audiopolicy/config/a2dp_in_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_in_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
+    frameworks/av/services/audiopolicy/config/bluetooth_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
 
+PRODUCT_COPY_FILES += \
+    frameworks/av/services/audiopolicy/enginedefault/config/example/phone/audio_policy_engine_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_engine_configuration.xml \
+    frameworks/av/services/audiopolicy/enginedefault/config/example/phone/audio_policy_engine_default_stream_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_engine_default_stream_volumes.xml \
+    frameworks/av/services/audiopolicy/enginedefault/config/example/phone/audio_policy_engine_product_strategies.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_engine_product_strategies.xml \
+    frameworks/av/services/audiopolicy/enginedefault/config/example/phone/audio_policy_engine_stream_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_engine_stream_volumes.xml
+
 # Bluetooth
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/bluetooth/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf \
-    $(LOCAL_PATH)/initfiles/init.btloader.sh:system/bin/init.btloader.sh
+    $(LOCAL_PATH)/bluetooth/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf
 
 PRODUCT_PACKAGES += \
     libbt-vendor \
@@ -76,26 +78,21 @@ PRODUCT_PROPERTY_OVERRIDES += \
     bluetooth.profile.a2dp.source.enabled=true \
     bluetooth.profile.avrcp.target.enabled=true \
     bluetooth.profile.gatt.enabled=true \
-    bluetooth.profile.hid.host.enabled=true
+    bluetooth.profile.hid.host.enabled=true \
+	persist.bluetooth.turn_off_bt_main_thread=true
 
 # Camera
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/camera/nvcamera.conf:system/etc/nvcamera.conf \
-    $(LOCAL_PATH)/camera/model_frontal.xml:system/etc/model_frontal.xml
+    $(LOCAL_PATH)/camera/nvcamera.conf:$(TARGET_COPY_OUT_VENDOR)/etc/nvcamera.conf \
+    $(LOCAL_PATH)/camera/model_frontal.xml:$(TARGET_COPY_OUT_VENDOR)/etc/model_frontal.xml
 
 PRODUCT_PACKAGES += \
+    camera.device@1.0-impl \
     camera.device@3.2-impl \
     android.hardware.camera.provider@2.4-impl \
-    camera.tegra \
-    libmocha_camera \
-    libmocha_omx \
-    libpowerservice_client \
-    libmocha_libc
 
 # Comm Permissions
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml \
-    frameworks/native/data/etc/android.hardware.sensor.proximity.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.proximity.xml \
     frameworks/native/data/etc/android.software.sip.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.sip.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.sip.voip.xml
 
@@ -110,13 +107,16 @@ PRODUCT_PACKAGES += \
 
 # Charging LED
 PRODUCT_COPY_FILES += \
-    device/xiaomi/mocha/initfiles/charger_led.sh:system/bin/charger_led.sh
+    $(LOCAL_PATH)/initfiles/charger_led.sh:system/bin/charger_led.sh
 
 # DRM HAL
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
     android.hardware.drm@1.0-service \
     android.hardware.drm@1.4-service.clearkey
+
+PRODUCT_COPY_FILES += \
+    prebuilts/vndk/v29/arm/arch-arm-armv7-a-neon/shared/vndk-core/libprotobuf-cpp-full.so:$(TARGET_COPY_OUT_VENDOR)/lib/libprotobuf-cpp-full-v29.so
 
 # Display Device Config
 PRODUCT_COPY_FILES += \
@@ -126,7 +126,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     fastbootd
 
-# FM
+# FM Radio (Broadcom)
 PRODUCT_PACKAGES += \
     android.hardware.broadcastradio@1.0-impl
 
@@ -140,12 +140,8 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
     android.hardware.graphics.allocator@2.0-service \
     android.hardware.graphics.composer@2.1-service \
-    android.hardware.graphics.mapper@2.0-impl \
+    android.hardware.graphics.mapper@2.0-impl-2.1 \
     android.hardware.renderscript@1.0-impl
-
-PRODUCT_COPY_FILES += \
-    prebuilts/vndk/v30/arm/arch-arm-armv7-a-neon/shared/vndk-sp/libc++.so:system/vendor/lib/libc++.so \
-    prebuilts/vndk/v32/arm/arch-arm-armv7-a-neon/shared/vndk-sp/libbase.so:system/vendor/lib/libbase.so
 
 # Shims
 PRODUCT_PACKAGES += \
@@ -156,9 +152,12 @@ PRODUCT_PACKAGES += \
     libs
 
 # HIDL
+PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := true
 PRODUCT_PACKAGES += \
+    android.hidl.allocator@1.0-service \
     android.hidl.base@1.0 \
-    android.hidl.manager@1.0
+    android.hidl.manager@1.0 \
+    android.hidl.manager-V1.0-java \
 
 # Binder
 PRODUCT_PACKAGES += \
@@ -184,17 +183,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@4.1-service
 
-PRODUCT_COPY_FILES += \
-    prebuilts/vndk/v29/arm/arch-arm-armv7-a-neon/shared/vndk-core/libprotobuf-cpp-full.so:$(TARGET_COPY_OUT_VENDOR)/lib/libprotobuf-cpp-full-v29.so
-
 # Light
 PRODUCT_PACKAGES += \
 	android.hardware.light@2.0-impl \
     android.hardware.light@2.0-service
-
-# LiveDisplay
-#PRODUCT_PACKAGES += \
-#	vendor.lineage.livedisplay@2.0-service-nvidia
 
 # Media_omx config
 PRODUCT_PACKAGES += \
@@ -213,6 +205,13 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
 	android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service
+
+# Net
+PRODUCT_PACKAGES += \
+    android.system.net.netd@1.0 \
+    libandroid_net \
+    libnl \
+    netutils-wrapper-1.0
 
 # NVIDIA
 PRODUCT_COPY_FILES += \
@@ -286,10 +285,6 @@ PRODUCT_PACKAGES += \
     android.hardware.power@1.0-service \
     android.hardware.power.stats@1.0-service.mock
 
-PRODUCT_COPY_FILES += \
-    system/core/libprocessgroup/profiles/cgroups_28.json:$(TARGET_COPY_OUT_VENDOR)/etc/cgroups.json \
-    system/core/libprocessgroup/profiles/task_profiles_28.json:$(TARGET_COPY_OUT_VENDOR)/etc/task_profiles.json
-
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.tn8 \
@@ -354,7 +349,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Vibrator
 PRODUCT_PACKAGES += \
 	android.hardware.vibrator@1.0-impl \
-    android.hardware.vibrator@1.0-service
+    android.hardware.vibrator@1.0-service \
+    android.hardware.vibrator@1.3
 
 # Vendor seccomp policy files for media components:
 PRODUCT_COPY_FILES += \
@@ -362,6 +358,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/seccomp/mediaextractor.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaextractor.policy
 
 # VNDK
+PRODUCT_TARGET_VNDK_VERSION := 33
 VNDK_SP_LIBRARIES := \
     com.android.vndk.current
 

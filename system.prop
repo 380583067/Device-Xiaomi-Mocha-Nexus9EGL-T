@@ -1,17 +1,18 @@
-# API
-ro.product.first_api_level=23
-
 # AptX
 persist.bt.enableAptXHD=true
 persist.service.btui.use_aptx=1
 persist.vendor.bt.a2dp_offload_cap=sbc-aptx-aptxtws-aptxhd-aac-ldac
-persist.vendor.btstack.a2dp_offload_cap=sbc-aptx-aptxtws-aptxhd-aac-ldacs
+persist.vendor.btstack.a2dp_offload_cap=sbc-aptx-aptxtws-aptxhd-aac-ldac
+persist.audio.force_volume_scale=1
 
 # BPF
 ro.kernel.ebpf.supported=false
+persist.net.bpf.stats=0
+ro.net.bpf.enabled=false
 
 # BT
-ro.boot.btmacaddr=03:16:6c:79:29:82
+ro.bt.bdaddr_path=/data/misc/bluetooth/mocha_btmacaddr.txt
+persist.bluetooth.gd.enabled=false
 
 # Charger
 persist.sys.chgdisabled=0
@@ -27,19 +28,23 @@ drm.service.enabled=true
 # Fastbootd
 ro.fastbootd.available=true
 
+# Tegra GPU Driver
+ro.hardware.egl=tegra
+ro.hardware.gralloc=tegra
+ro.hardware.hwcomposer=tegra
+
 # Graphics
 ro.opengles.version=196610
-ro.sf.lcd_density=320
+ro.sf.lcd_density=256
 ro.input.noresample=1
 ro.zygote.disable_gl_preload=true
-ro.surface_flinger.max_frame_buffer_acquired_buffers=3
+ro.surface_flinger.max_frame_buffer_acquired_buffers=2
 persist.tegra.compositor=surfaceflinger
 persist.tegra.decompression=cde-client
 persist.vendor.tegra.composite.policy=composite-yuv
 persist.sys.ui.hw=true
 debug.sf.hw=1
 debug.egl.hw=1
-#debug.hwc.force_gpu=1
 debug.sf.latch_unsignaled=1
 debug.sf.enable_gl_backpressure=1
 debug.hwui.use_buffer_age=false
@@ -48,7 +53,7 @@ debug.renderengine.backend=threaded
 # Lineage genuine
 persist.lineage.nofool=true
 
-# LMKD options
+# LMKD Memory Tuning
 ro.lmk.low=1001
 ro.lmk.medium=800
 ro.lmk.high=400
@@ -57,10 +62,10 @@ ro.lmk.critical_upgrade=1
 ro.lmk.upgrade_pressure=80
 ro.lmk.downgrade_pressure=65
 ro.lmk.kill_heaviest_task=1
-ro.lmk.kill_timeout_ms=100
+ro.lmk.kill_timeout_ms=500
 ro.lmk.use_minfree_levels=true
 
-# OMX
+# OMX Only (No Codec2)
 persist.tegra.nvmmlite=1
 persist.media.treble_omx=false
 
@@ -68,7 +73,7 @@ persist.media.treble_omx=false
 media.stagefright.less-secure=true
 media.stagefright.legacyencoder=true
 
-# PBC
+# PBC Power Monitor (Disabled)
 pbc.enabled=0
 pbc.log=0
 pbc.board_power_threshold=20000
@@ -102,5 +107,8 @@ wifi.interface=wlan0
 ap.interface=wlan0
 persist.wlan.ti.calibrated=0
 
-# Don't write binary XML files
+# Binary xml off
 persist.sys.binary_xml=false
+
+# Disable unlock
+ro.oem_unlock_supported=false

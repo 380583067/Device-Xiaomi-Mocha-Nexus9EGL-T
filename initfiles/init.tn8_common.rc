@@ -8,12 +8,12 @@
 
 on early-init
     # create /oem symbol link
-    symlink /vendor/oem /oem
+    symlink /system/vendor/oem /oem
     chmod 0755 /oem
     chown root system /oem
 
     # create /lbh symbol link
-    symlink /vendor/lbh /lbh
+    symlink /system/vendor/lbh /lbh
     chmod 0755 /lbh
     chown root system /lbh
 
@@ -31,6 +31,14 @@ on fs
     setprop ro.crypto.umount_sd false
     setprop ro.crypto.fuse_sdcard true
     setprop audio.custompolicy 1
+    # add a cpuset for the camera daemon
+    # we want all the little cores for camera
+    mkdir /dev/cpuset/camera-daemon
+    write /dev/cpuset/camera-daemon/cpus 0
+    write /dev/cpuset/camera-daemon/mems 0
+    chown system system /dev/cpuset/camera-daemon
+    chown system system /dev/cpuset/camera-daemon/tasks
+    chmod 0664 /dev/cpuset/camera-daemon/tasks
 
 on post-fs-data
     # Set SELinux security contexts for NvCPL keylayout files.
@@ -43,15 +51,6 @@ on boot
     setprop nvwfd.maxresolution_macroblocks 8160
     #enable Miracast game mode support
     setprop nvwfd.gamemode 1
-
-    # add a cpuset for the camera daemon
-    # we want all the little cores for camera
-    mkdir /dev/cpuset/camera-daemon
-    write /dev/cpuset/camera-daemon/cpus 0
-    write /dev/cpuset/camera-daemon/mems 0
-    chown system system /dev/cpuset/camera-daemon
-    chown system system /dev/cpuset/camera-daemon/tasks
-    chmod 0664 /dev/cpuset/camera-daemon/tasks
 
 on init
     setprop ro.feature.stylus 1
